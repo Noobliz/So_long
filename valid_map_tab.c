@@ -6,13 +6,23 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:21:12 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/09 17:25:11 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/10 14:33:48 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "LIBFT/libft.h"
 #include "so_long.h"
 
+void	init_struct(t_element *element)
+{
+	element->player = 0;
+	element->collectible = 0;
+	element->exit = 0;
+	element->exit_y = 0;
+	element->exit_x = 0;
+	element->x = 0;
+	element->y = 0;
+}
 int	is_valid(char **map)
 {
 	if (!is_rectangular(map) || !is_surrounded_by_walls(map)
@@ -30,7 +40,10 @@ int	is_rectangular(char **map)
 	while (map[i])
 	{
 		if (ft_strlen(map[i]) != width)
+		{
+			ft_printf("the map is not rectangular\n");
 			return (0);
+		}
 		i++;
 	}
 	return (1);
@@ -42,39 +55,39 @@ int	is_surrounded_by_walls(char **map)
 	size_t	height;
 	size_t	i;
 
-	width = ft_strlen(map[0]); // longueur premiere ligne
+	width = ft_strlen(map[0]);
 	height = 0;
 	i = 0;
-	while (map[height]) // largeur
+	while (map[height])
 		height++;
-	// verifie premiere et derniere ligne
-	while (i < width - 1)
+	while (i < width)
 	{
 		if (map[0][i] != '1' || map[height - 1][i] != '1')
+		{
+			ft_printf("the map is not surrounded by walls\n");
 			return (0);
+		}
 		i++;
 	}
-	// verifie les cotes
 	i = 0;
 	while (i < height)
 	{
-		if (map[i][0] != '1' || map[i][width - 2] != '1')
+		if (map[i][0] != '1' || map[i][width - 1] != '1')
+		{
+			ft_printf("the map is not surrounded by walls\n");
 			return (0);
+		}
 		i++;
 	}
 	return (1);
 }
 bool	has_all_elements(char **map)
 {
-	int	player;
-	int	collectible;
-	int	exit;
-	int	i;
-	int	j;
+	t_element	element;
+	int			i;
+	int			j;
 
-	player = 0;
-	collectible = 0;
-	exit = 0;
+	init_struct(&element);
 	i = 1;
 	while (map[i])
 	{
@@ -82,14 +95,15 @@ bool	has_all_elements(char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] == 'P')
-				player++;
+				element.player++;
 			if (map[i][j] == 'C')
-				collectible++;
+				element.collectible++;
 			if (map[i][j] == 'E')
-				exit++;
+				element.exit++;
 			j++;
 		}
 		i++;
 	}
-	return (player == 1 && collectible >= 1 && exit == 1);
+	return (element.player == 1 && element.collectible >= 1
+		&& element.exit == 1);
 }

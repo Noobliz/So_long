@@ -6,15 +6,12 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:31:20 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/09 16:37:42 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/10 12:25:15 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "LIBFT/libft.h"
 #include "so_long.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
 
 char	*remove_newline(char *line)
 {
@@ -25,51 +22,67 @@ char	*remove_newline(char *line)
 		line[len - 1] = '\0';
 	return (line);
 }
-
-char	**get_map(void)
+int	map_size(void)
 {
-	char	*line;
-	int		fd;
 	int		len;
-	char	**map;
-	int		i;
+	int		fd;
+	char	*line;
 
-	i = 0;
 	len = 0;
 	fd = open("map.ber", O_RDONLY);
 	if (fd < 0)
-		return (NULL); 
+		exit(EXIT_FAILURE);
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		free(line);
 		len++;
 	}
 	close(fd);
-	map = malloc(sizeof(char *) * (len + 1));
-	if (!map)
-		return (NULL);
+	return (len);
+}
+void	create_table(char **map, int len)
+{
+	int		fd;
+	int		i;
+	char	*line;
+
+	i = 0;
 	fd = open("map.ber", O_RDONLY);
 	if (fd < 0)
-		return (NULL);
+	{
+		free_map(map);
+		exit(EXIT_FAILURE);
+	}
 	while (i < len)
 	{
 		line = get_next_line(fd);
 		if (!line)
 		{
 			map[i] = NULL;
-			break;
+			break ;
 		}
 		map[i] = remove_newline(line);
 		i++;
 	}
 	map[i] = NULL;
 	close(fd);
+}
+char	**get_map(void)
+{
+	int		len;
+	char	**map;
+
+	len = map_size();
+	map = malloc(sizeof(char *) * (len + 1));
+	if (!map)
+		return (NULL);
+	create_table(map, len);
 	return (map);
 }
 
 void	free_map(char **map)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (map[i])
