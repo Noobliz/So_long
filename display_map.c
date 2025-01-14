@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:50:43 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/14 14:13:47 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/14 15:47:55 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ void	display_map(char **map, t_img img, t_data data)
 		}
 		y++;
 	}
-	mlx_loop(data.mlx);
+	free_map(map);
 }

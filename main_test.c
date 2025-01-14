@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 13:30:23 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/14 14:15:38 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/14 15:49:48 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 // 	return (0);
 // }
 #include "so_long.h"
+#include <X11/X.h>
+#include <X11/keysym.h>
 #include <mlx.h>
 #include <stdio.h>
 
@@ -58,6 +60,18 @@ int	main(void)
 		printf("Error\nNo valid path found\n");
 	if (!img_init(&img, &data))
 		return (0);
+	mlx_hook(data.window, KeyPress, KeyPressMask, &handle_keypress, &data);
 	display_map(map, img, data);
+	mlx_loop(data.mlx);
+	// mlx_destroy_image(data.mlx, img.img_char);
+	// mlx_destroy_image(data.mlx, img.img_coll);
+	// mlx_destroy_image(data.mlx, img.img_exit);
+	// mlx_destroy_image(data.mlx, img.img_floor);
+	// mlx_destroy_image(data.mlx, img.img_wall);
+	// mlx_destroy_image(data.mlx, img.img_lantern);
+	// mlx_destroy_display(data.mlx);
+	// free(data.mlx);
+	// // exit(0);
 	return (0);
+	// image window display
 }

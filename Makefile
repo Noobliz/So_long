@@ -14,6 +14,7 @@ SRCS = \
 	utils.c \
 	valid_path.c \
 	display_map.c \
+	handle_window.c \
 
 OBJS = \
 	$(OBJ_DIR)/main_test.o \
@@ -22,6 +23,7 @@ OBJS = \
 	$(OBJ_DIR)/utils.o \
 	$(OBJ_DIR)/valid_path.o \
 	$(OBJ_DIR)/display_map.o \
+	$(OBJ_DIR)/handle_window.o \
 
 all: $(LIBFT) $(INCLUDES) $(NAME)
 

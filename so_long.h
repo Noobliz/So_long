@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:34:12 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/14 14:15:25 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/14 15:46:13 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*window;
-	t_img	img;
+	t_img	*img;
 }			t_data;
 
 //---------------------------UTILS
@@ -64,5 +64,8 @@ int			valid_path(char **map);
 //-------------------------------------------------------------MAP display
 void		display_map(char **map, t_img img, t_data data);
 int			img_init(t_img *img, t_data *data);
+//-------------------------------------------------------------Window related
+int			handle_input(int keysym, t_data *data);
+int			handle_keypress(int keysym, t_data *data);
 
 #endif
