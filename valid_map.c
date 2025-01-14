@@ -1,58 +1,132 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_map.c                                        :+:      :+:    :+:   */
+/*   valid_map_tab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 14:46:29 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/07 16:05:50 by lguiet           ###   ########.fr       */
+/*   Created: 2025/01/09 12:21:12 by lguiet            #+#    #+#             */
+/*   Updated: 2025/01/13 14:09:41 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "LIBFT/libft.h"
+#include "so_long.h"
 
-typedef struct s_map {
-	int				value;  
-	struct s_map	*x;     //à droite
-	struct s_map	*y;     // en bas
-} t_map;
+int	is_rectangular(char **map)
+{
+	size_t	width;
+	size_t	i;
 
-int	surrounded_by_walls(t_map *map) {
-	t_map *tmp = map;
-	t_map *right_side = NULL;
-
-	// Vérification de la première ligne (haut)
-	while (tmp) {
-		if (tmp->value != 1) 
+	width = ft_strlen(map[0]);
+	i = 1;
+	while (map[i])
+	{
+		if (ft_strlen(map[i]) != width)
 			return (0);
-		if (!tmp->x) 
-			right_side = tmp;
-		tmp = tmp->x;
+		i++;
 	}
+	return (1);
+}
 
-	// Vérification de la dernière ligne (bas)
-	tmp = map;
-	while (tmp->y)
-		tmp = tmp->y;
+int	is_surrounded_by_walls(char **map)
+{
+	size_t	width;
+	size_t	height;
+	size_t	i;
 
-	while (tmp) {
-		if (tmp->value != 1)
+	width = ft_strlen(map[0]);
+	height = 0;
+	i = 0;
+	while (map[height])
+		height++;
+	while (i < width)
+	{
+		if (map[0][i] != '1' || map[height - 1][i] != '1')
 			return (0);
-		tmp = tmp->x;
+		i++;
 	}
-
-	// Vérification des côtés gauche et droit
-	t_map *left_side = map; // Début du côté gauche
-	tmp = right_side;       // Début du côté droit
-
-	while (left_side && tmp) {
-		if (left_side->value != 1 || tmp->value != 1) 
+	i = 0;
+	while (i < height)
+	{
+		if (map[i][0] != '1' || map[i][width - 1] != '1')
 			return (0);
-		left_side = left_side->y;
-		tmp = tmp->y;          
+		i++;
 	}
+	return (1);
+}
+int	has_all_elements(char **map)
+{
+	t_element	element;
+	int			i;
+	int			j;
 
+	init_struct(&element);
+	i = 1;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'P')
+				element.player++;
+			if (map[i][j] == 'C')
+				element.collectible++;
+			if (map[i][j] == 'E')
+				element.exit++;
+			j++;
+		}
+		i++;
+	}
+	return (element.player == 1 && element.collectible >= 1
+		&& element.exit == 1);
+}
+int	valid_characters(char **map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] != '0' && map[y][x] != 'E' && map[y][x] != 'C'
+				&& map[y][x] != '1' && map[y][x] != 'P')
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
+int	is_valid(char **map)
+{
+	if (!is_rectangular(map))
+	{
+		ft_printf("Error\n");
+		ft_printf("Map is not rectangular\n");
+		return (0);
+	}
+	if (!is_surrounded_by_walls(map))
+	{
+		ft_printf("Error\n");
+		ft_printf("Map is not surrounded by walls\n");
+		return (0);
+	}
+	if (!has_all_elements(map))
+	{
+		ft_printf("Error\n");
+		ft_printf("Map do not have required elements\n");
+		return (0);
+	}
+	if (!valid_characters(map))
+	{
+		ft_printf("Error\n");
+		ft_printf("Map has invalid characters\n");
+		return (0);
+	}
 	return (1);
 }

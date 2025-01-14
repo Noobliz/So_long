@@ -6,14 +6,14 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:31:20 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/10 12:25:15 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/13 14:26:25 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "LIBFT/libft.h"
 #include "so_long.h"
 
-char	*remove_newline(char *line)
+static char	*remove_newline(char *line)
 {
 	int	len;
 
@@ -22,25 +22,8 @@ char	*remove_newline(char *line)
 		line[len - 1] = '\0';
 	return (line);
 }
-int	map_size(void)
-{
-	int		len;
-	int		fd;
-	char	*line;
 
-	len = 0;
-	fd = open("map.ber", O_RDONLY);
-	if (fd < 0)
-		exit(EXIT_FAILURE);
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		free(line);
-		len++;
-	}
-	close(fd);
-	return (len);
-}
-void	create_table(char **map, int len)
+static void	create_table(char **map, int len)
 {
 	int		fd;
 	int		i;
@@ -53,7 +36,7 @@ void	create_table(char **map, int len)
 		free_map(map);
 		exit(EXIT_FAILURE);
 	}
-	while (i < len)
+	while (i <= len)
 	{
 		line = get_next_line(fd);
 		if (!line)
@@ -78,18 +61,4 @@ char	**get_map(void)
 		return (NULL);
 	create_table(map, len);
 	return (map);
-}
-
-void	free_map(char **map)
-{
-	int i;
-
-	i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		free(map[i]);
-		i++;
-	}
-	free(map);
 }

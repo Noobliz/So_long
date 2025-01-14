@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:10:51 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/10 15:58:38 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/14 12:18:42 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,17 @@ void	find_player_count_c(char **map, t_element *element)
 		{
 			if (map[y][x] == 'P')
 			{
-				element->y = y;
-				element->x = x;
-				break ;
+				element->player_y = y;
+				element->player_x = x;
 			}
+			if (map[y][x] == 'C')
+				element->collectible++;
 			x++;
 		}
-		if (map[y][x] == 'C')
-			element->collectible++;
 		y++;
 	}
-	printf("player is at x : %d et y : %d\n", element->x, element->y);
 }
+
 void	find_exit(char **map, t_element *element)
 {
 	int	y;
@@ -55,21 +54,20 @@ void	find_exit(char **map, t_element *element)
 			{
 				element->exit_y = y;
 				element->exit_x = x;
-				break ;
 			}
 			x++;
 		}
 		y++;
 	}
 }
+
 char	**copy_map(char **map)
 {
-	int		i;
 	int		len;
 	char	**map_copy;
 
 	len = 0;
-	while (map[len])
+	while (map && map[len])
 	{
 		len++;
 	}
@@ -82,20 +80,46 @@ char	**copy_map(char **map)
 		map_copy[len] = ft_strdup(map[len]);
 		len++;
 	}
+	map_copy[len] = NULL;
 	return (map_copy);
 }
-void	walk_through(char **copy_map, int x, int y)
+
+void	walk_through(char **copy_map, int x, int y, int *c_count, int *exit)
 {
 	if (copy_map[y][x] == '1' || copy_map[y][x] == 'X')
 		return ;
+	if (copy_map[y][x] == 'C')
+		(*c_count)++;
+	if (copy_map[y][x] == 'E')
+	{
+		*exit = 1;
+		return ;
+	}
 	copy_map[y][x] = 'X';
-	walk_through(copy_map, x + 1, y);
-	walk_through(copy_map, x - 1, y);
-	walk_through(copy_map, x, y + 1);
-	walk_through(copy_map, x, y - 1);
+	walk_through(copy_map, x + 1, y, c_count, exit);
+	walk_through(copy_map, x - 1, y, c_count, exit);
+	walk_through(copy_map, x, y + 1, c_count, exit);
+	walk_through(copy_map, x, y - 1, c_count, exit);
 }
-void	valid_path(char **map, t_element *element)
+
+int	valid_path(char **map)
 {
-	int collectible;
-	int exit;
+	int			c_count;
+	int			exit;
+	char		**map_copy;
+	t_element	element;
+
+	exit = 0;
+	c_count = 0;
+	init_struct(&element);
+	find_player_count_c(map, &element);
+	find_exit(map, &element);
+	map_copy = copy_map(map);
+	if (!map_copy)
+		return (0);
+	walk_through(map_copy, element.player_x, element.player_y, &c_count, &exit);
+	free_map(map_copy);
+	if (c_count == element.collectible && exit == 1)
+		return (1);
+	return (0);
 }
