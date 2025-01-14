@@ -30,6 +30,11 @@ if (keycode == KEY_LEFT && game->map[game->player_y][game->player_x - 1] != '1')
     game->player_x--;
 if (keycode == KEY_RIGHT && game->map[game->player_y][game->player_x + 1] != '1')
     game->player_x++;
+if (keycode == KEY_UP && game->map[game->player_y - 1][game->player_x] == 'C') {
+    game->map[game->player_y - 1][game->player_x] = '0';
+    game->player_y--;
+    game->collectibles--;
+}
 
 
   // ajouter fction pr redessiner map
