@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:50:43 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/14 15:47:55 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/15 15:36:26 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,28 @@
 #include <mlx.h>
 #include <stdio.h>
 
-int	img_init(t_img *img, t_data *data)
+int	img_init(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->window = mlx_new_window(data->mlx, 800, 600, "So Long");
-	img->img_wall = mlx_xpm_file_to_image(data->mlx, "assets/wall.xpm",
-			&img->img_width, &img->img_height);
-	img->img_lantern = mlx_xpm_file_to_image(data->mlx, "assets/lantern.xpm",
-			&img->img_width, &img->img_height);
-	img->img_floor = mlx_xpm_file_to_image(data->mlx, "assets/ground2.xpm",
-			&img->img_width, &img->img_height);
-	img->img_char = mlx_xpm_file_to_image(data->mlx, "assets/hoodi.xpm",
-			&img->img_width, &img->img_height);
-	img->img_coll = mlx_xpm_file_to_image(data->mlx, "assets/potion.xpm",
-			&img->img_width, &img->img_height);
-	img->img_exit = mlx_xpm_file_to_image(data->mlx, "assets/exit.xpm",
-			&img->img_width, &img->img_height);
-	if (!img->img_wall || !img->img_floor || !img->img_lantern || !img->img_char
-		|| !img->img_coll || !img->img_exit)
+	data->img->img_wall = mlx_xpm_file_to_image(data->mlx, "assets/wall.xpm",
+			&data->img->img_width, &data->img->img_height);
+	data->img->img_lantern = mlx_xpm_file_to_image(data->mlx,
+			"assets/lantern.xpm", &data->img->img_width,
+			&data->img->img_height);
+	data->img->img_floor = mlx_xpm_file_to_image(data->mlx,
+			"assets/ground2.xpm", &data->img->img_width,
+			&data->img->img_height);
+	data->img->img_char = mlx_xpm_file_to_image(data->mlx, "assets/hoodi.xpm",
+			&data->img->img_width, &data->img->img_height);
+	data->img->img_coll = mlx_xpm_file_to_image(data->mlx, "assets/potion.xpm",
+			&data->img->img_width, &data->img->img_height);
+	data->img->img_exit = mlx_xpm_file_to_image(data->mlx, "assets/exit.xpm",
+			&data->img->img_width, &data->img->img_height);
+	if (!data->img->img_wall || !data->img->img_floor || !data->img->img_lantern
+		|| !data->img->img_char || !data->img->img_coll || !data->img->img_exit)
 	{
-		printf("Error\nNo image charged\n");
+		printf("Error\nNo image initialized\n");
 		return (0);
 	}
 	return (1);
@@ -83,5 +85,5 @@ void	display_map(char **map, t_img img, t_data data)
 		}
 		y++;
 	}
-	free_map(map);
+	// free_map(map);
 }

@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:10:51 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/14 12:18:42 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/15 15:57:44 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,25 @@ void	walk_through(char **copy_map, int x, int y, int *c_count, int *exit)
 	walk_through(copy_map, x, y - 1, c_count, exit);
 }
 
-int	valid_path(char **map)
+int	valid_path(char **map, t_element *element)
 {
-	int			c_count;
-	int			exit;
-	char		**map_copy;
-	t_element	element;
+	int		c_count;
+	int		exit;
+	char	**map_copy;
 
 	exit = 0;
 	c_count = 0;
-	init_struct(&element);
-	find_player_count_c(map, &element);
-	find_exit(map, &element);
+	init_struct(element);
+	find_player_count_c(map, element);
+	find_exit(map, element);
 	map_copy = copy_map(map);
 	if (!map_copy)
 		return (0);
-	walk_through(map_copy, element.player_x, element.player_y, &c_count, &exit);
+	walk_through(map_copy, element->player_x, element->player_y, &c_count,
+		&exit);
 	free_map(map_copy);
-	if (c_count == element.collectible && exit == 1)
+	if (c_count == element->collectible && exit == 1)
 		return (1);
+	ft_printf("Error\nNo valid path found");
 	return (0);
 }

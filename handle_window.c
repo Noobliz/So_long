@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:19:47 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/14 15:51:37 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/15 13:05:08 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
 	{
-		destroy_images(data.img, data.mlx)
+		destroy_images(data->img, data->mlx);
 		mlx_destroy_window(data->mlx, data->window);
-		free_map(map);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
+		// free_map(map);
 		exit(0);
 	}
 	return (0);

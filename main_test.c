@@ -6,26 +6,10 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 13:30:23 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/14 15:49:48 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/15 16:02:29 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// int	main(void)
-// {
-// 	char **map;
-// 	map = get_map();
-// 	if (!is_valid(map))
-// 	{
-// 		free_map(map);
-// 		return (0);
-// 	}
-// 	if (valid_path(map))
-// 		printf("Valid path found \n");
-// 	else
-// 		printf("Error\nNo valid path found\n");
-// 	free_map(map);
-// 	return (0);
-// }
 #include "so_long.h"
 #include <X11/X.h>
 #include <X11/keysym.h>
@@ -34,10 +18,12 @@
 
 int	main(void)
 {
-	char	**map;
-	t_img	img;
-	t_data	data;
+	char		**map;
+	t_img		img;
+	t_data		data;
+	t_element	element;
 
+	data.img = &img;
 	data.mlx = 0;
 	data.window = 0;
 	img.img_wall = 0;
@@ -48,31 +34,21 @@ int	main(void)
 	img.img_exit = 0;
 	img.img_width = 0;
 	img.img_height = 0;
-	data.img = &img;
 	map = get_map();
-	if (!is_valid(map))
+	if (!map)
+		return (0);
+	if (!is_valid(map) || !valid_path(map, &element))
 	{
 		free_map(map);
 		return (0);
 	}
-	if (valid_path(map))
-		printf("Valid path found \n");
-	else
-		printf("Error\nNo valid path found\n");
-	if (!img_init(&img, &data))
+	data.element = &element;
+	if (!img_init(&data))
 		return (0);
+	printf("collectible = %d\n", data.element->collectible);
 	mlx_hook(data.window, KeyPress, KeyPressMask, &handle_keypress, &data);
+
 	display_map(map, img, data);
 	mlx_loop(data.mlx);
-	// mlx_destroy_image(data.mlx, img.img_char);
-	// mlx_destroy_image(data.mlx, img.img_coll);
-	// mlx_destroy_image(data.mlx, img.img_exit);
-	// mlx_destroy_image(data.mlx, img.img_floor);
-	// mlx_destroy_image(data.mlx, img.img_wall);
-	// mlx_destroy_image(data.mlx, img.img_lantern);
-	// mlx_destroy_display(data.mlx);
-	// free(data.mlx);
-	// // exit(0);
 	return (0);
-	// image window display
 }
