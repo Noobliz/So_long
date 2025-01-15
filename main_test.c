@@ -48,6 +48,7 @@ int	main(void)
 	img.img_exit = 0;
 	img.img_width = 0;
 	img.img_height = 0;
+	data.img = &img;
 	map = get_map();
 	if (!is_valid(map))
 	{
