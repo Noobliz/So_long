@@ -51,5 +51,36 @@ int	handle_keypress(int keysym, t_data *data)
 		// free_map(map);
 		exit(0);
 	}
+int new_x = data->element->player_x; // Position actuelle X
+    int new_y = data->element->player_y; // Position actuelle Y
+    if (keysym == XK_Up || keysym == XK_w)      // Haut
+        new_y--;
+    else if (keysym == XK_Down || keysym == XK_s) // Bas
+        new_y++;
+    else if (keysym == XK_Left || keysym == XK_a) // Gauche
+        new_x--;
+    else if (keysym == XK_Right || keysym == XK_d) // Droite
+        new_x++;
+    if (data->map[new_y][new_x] != '1') // Pas un mur
+    {
+        if (data->map[new_y][new_x] == 'C')
+        {
+            data->map[new_y][new_x] = '0';
+            data->element->collectible--;
+        }
+
+        data->map[data->element->player_y][data->element->player_x] = '0';
+        data->map[new_y][new_x] = 'P';
+        data->element->player_x = new_x;
+        data->element->player_y = new_y;
+        display_map(data->map, *(data->img), *data);
+        if (data->map[new_y][new_x] == 'E' && data->element->collectible == 0)
+        {
+            printf("Congratulations! You've collected everything and found the exit!\n");
+            mlx_destroy_window(data->mlx, data->window);
+            free_map(data->map);
+            exit(0);
+        }
+    }
 	return (0);
 }
