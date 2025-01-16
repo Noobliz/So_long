@@ -48,6 +48,7 @@ typedef struct s_data
 	char		*map;
 	t_img		*img;
 	t_element	*element;
+	char	**map;
 }				t_data;
 
 //---------------------------UTILS
