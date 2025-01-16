@@ -27,6 +27,7 @@ typedef struct s_element
 	int			exit_x;
 	int			player_x;
 	int			player_y;
+	int	mouve_count;
 }				t_element;
 
 typedef struct s_img
@@ -49,6 +50,7 @@ typedef struct s_data
 	t_img		*img;
 	t_element	*element;
 	char	**map;
+
 }				t_data;
 
 //---------------------------UTILS
