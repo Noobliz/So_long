@@ -51,8 +51,8 @@ int	handle_keypress(int keysym, t_data *data)
 		// free_map(map);
 		exit(0);
 	}
-int new_x = data->element->player_x; // Position actuelle X
-    int new_y = data->element->player_y; // Position actuelle Y
+int new_x = data->element->player_x;
+    int new_y = data->element->player_y;
     if (keysym == XK_Up || keysym == XK_w)      // Haut
         new_y--;
     else if (keysym == XK_Down || keysym == XK_s) // Bas
@@ -61,7 +61,7 @@ int new_x = data->element->player_x; // Position actuelle X
         new_x--;
     else if (keysym == XK_Right || keysym == XK_d) // Droite
         new_x++;
-    if (data->map[new_y][new_x] != '1') // Pas un mur
+    if (data->map[new_y][new_x] != '1')
     {
         if (data->map[new_y][new_x] == 'C')
         {
@@ -73,6 +73,8 @@ int new_x = data->element->player_x; // Position actuelle X
         data->map[new_y][new_x] = 'P';
         data->element->player_x = new_x;
         data->element->player_y = new_y;
+	data->element->move_count++;
+   	printf("Moves: %d\n", data->element->move_count);
         display_map(data->map, *(data->img), *data);
         if (data->map[new_y][new_x] == 'E' && data->element->collectible == 0)
         {
