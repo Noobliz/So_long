@@ -76,7 +76,7 @@ int new_x = data->element->player_x; // Position actuelle X
         display_map(data->map, *(data->img), *data);
         if (data->map[new_y][new_x] == 'E' && data->element->collectible == 0)
         {
-            printf("Congratulations! You've collected everything and found the exit!\n");
+            printf("GG!\n");
             mlx_destroy_window(data->mlx, data->window);
             free_map(data->map);
             exit(0);
