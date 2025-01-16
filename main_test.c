@@ -34,7 +34,7 @@ int	main(void)
 	img.img_exit = 0;
 	img.img_width = 0;
 	img.img_height = 0;
-	map = get_map();
+	data.map = get_map();
 	if (!map)
 		return (0);
 	if (!is_valid(map) || !valid_path(map, &element))
