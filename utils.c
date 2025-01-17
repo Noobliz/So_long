@@ -6,22 +6,21 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:17:16 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/13 14:18:47 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/17 14:43:16 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "so_long.h"
-#include "LIBFT/libft.h"
 
 void	init_struct(t_element *element)
 {
 	element->player = 0;
 	element->collectible = 0;
 	element->exit = 0;
-	element->exit_y = 0;
-	element->exit_x = 0;
 	element->player_x = 0;
 	element->player_y = 0;
+	element->move_count = 1;
 }
 
 int	map_size(void)
@@ -42,16 +41,33 @@ int	map_size(void)
 	close(fd);
 	return (len);
 }
+
 void	free_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map[i])
 	{
-		// printf("%s\n", map[i]);
 		free(map[i]);
 		i++;
 	}
 	free(map);
+}
+int	map_height(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		i++;
+	return (i);
+}
+int	map_width(char **map)
+{
+	int j;
+	j = 0;
+	while (map[1][j])
+		j++;
+	return (j);
 }

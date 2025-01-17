@@ -6,11 +6,10 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:10:51 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/15 15:57:44 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/17 14:43:25 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "LIBFT/libft.h"
 #include "so_long.h"
 
 void	find_player_count_c(char **map, t_element *element)

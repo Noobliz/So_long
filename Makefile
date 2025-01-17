@@ -8,22 +8,22 @@ LIBFT = LIBFT/libft.a
 INCLUDES = minilibx-linux/libmlx_linux.a
 
 SRCS = \
-	main_test.c \
+	main.c \
 	valid_map.c \
 	get_map.c \
 	utils.c \
 	valid_path.c \
 	display_map.c \
-	handle_window.c \
+	player_mov.c \
 
 OBJS = \
-	$(OBJ_DIR)/main_test.o \
+	$(OBJ_DIR)/main.o \
 	$(OBJ_DIR)/valid_map.o \
 	$(OBJ_DIR)/get_map.o \
 	$(OBJ_DIR)/utils.o \
 	$(OBJ_DIR)/valid_path.o \
 	$(OBJ_DIR)/display_map.o \
-	$(OBJ_DIR)/handle_window.o \
+	$(OBJ_DIR)/player_mov.o \
 
 all: $(LIBFT) $(INCLUDES) $(NAME)
 
@@ -50,7 +50,9 @@ clean:
 
 lclean:
 	@echo "Cleaning libraries..."
-	@$(MAKE) -C LIBFT fclean -C minilibx-linux fclean
+	@$(MAKE) -C LIBFT fclean 
+	
+#-C minilibx-linux fclean
 
 fclean: clean lclean
 	@echo "Cleaning executable $(NAME)..."

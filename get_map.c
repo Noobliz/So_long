@@ -6,11 +6,10 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:31:20 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/13 14:26:25 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/17 14:42:58 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "LIBFT/libft.h"
 #include "so_long.h"
 
 static char	*remove_newline(char *line)
