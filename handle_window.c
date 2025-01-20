@@ -86,3 +86,17 @@ int new_x = data->element->player_x;
     }
 	return (0);
 }
+int handle_keyrelease(int keysym, t_data *data)
+{
+    if (keysym == XK_Escape) // Touche Échap relâchée
+    {
+        printf("Game closed\n");
+        mlx_destroy_window(data->mlx, data->window);
+        free_map(data->map);
+        mlx_destroy_display(data->mlx);
+        free(data->mlx);
+        exit(0);
+    }
+    return (0);
+}
+
