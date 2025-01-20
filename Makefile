@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 MLX_FLAGS = -Lmlx -lmlx -Lminilibx-linux -lXext -lX11
 OBJ_DIR = obj
 LIBFT = LIBFT/libft.a
-INCLUDES = minilibx-linux/libmlx_linux.a
+MLX_LIB = minilibx-linux/libmlx_linux.a
 
 SRCS = \
 	main.c \
@@ -16,18 +16,11 @@ SRCS = \
 	display_map.c \
 	player_mov.c \
 
-OBJS = \
-	$(OBJ_DIR)/main.o \
-	$(OBJ_DIR)/valid_map.o \
-	$(OBJ_DIR)/get_map.o \
-	$(OBJ_DIR)/utils.o \
-	$(OBJ_DIR)/valid_path.o \
-	$(OBJ_DIR)/display_map.o \
-	$(OBJ_DIR)/player_mov.o \
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-all: $(LIBFT) $(INCLUDES) $(NAME)
+all: $(LIBFT) $(MLX_LIB) $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(INCLUDES)
+$(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
 	@echo "Linking $(NAME)..."
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_FLAGS) -L./LIBFT -lft
 
@@ -40,24 +33,21 @@ $(LIBFT):
 	@echo "Building libft..."
 	@$(MAKE) -C LIBFT
 
-$(INCLUDES):
-	@echo "Building Mlx..."
+$(MLX_LIB):
+	@echo "Building MiniLibX..."
 	@$(MAKE) -C minilibx-linux
 
 clean:
 	@echo "Cleaning object files..."
 	@rm -rf $(OBJ_DIR)
 
-lclean:
-	@echo "Cleaning libraries..."
-	@$(MAKE) -C LIBFT fclean 
-	
-#-C minilibx-linux fclean
-
-fclean: clean lclean
-	@echo "Cleaning executable $(NAME)..."
+fclean: clean
+	@echo "Cleaning libraries and executable..."
+	@$(MAKE) -C LIBFT fclean
+	@$(MAKE) -C minilibx-linux clean
 	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean lclean re
+.PHONY: all clean fclean re
+
