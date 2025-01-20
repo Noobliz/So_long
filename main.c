@@ -34,6 +34,7 @@ int	main(void)
 	data.element = &element;
 	mlx_hook(data.window, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.window, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);
+	mlx_hook(data.window, DestroyNotify, NoEventMask, &handle_close, &data);
 	display_map(data.map, img, data);
 	mlx_loop(data.mlx);
 	return (0);
