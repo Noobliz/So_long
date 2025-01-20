@@ -100,3 +100,15 @@ int handle_keyrelease(int keysym, t_data *data)
     return (0);
 }
 
+int handle_close(t_data *data)
+{
+    destroy_images(data->img, data->mlx);
+    free_map(data->map);
+    mlx_destroy_window(data->mlx, data->window);
+    mlx_destroy_display(data->mlx);
+    free(data->mlx);
+    exit(0);
+    return (0);
+}
+
+
