@@ -12,12 +12,6 @@
 
 #include "so_long.h"
 
-int	handle_input(int keysym, t_data *data)
-{
-	if (keysym == XK_Escape)
-		mlx_destroy_window(data->mlx, data->window);
-	return (0);
-}
 
 void	destroy_images(t_img *img, void *mlx)
 {
