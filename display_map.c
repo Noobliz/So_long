@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:50:43 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/17 15:32:59 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/21 12:11:12 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,33 @@ void	img_init(t_data *data)
 	}
 }
 
-void	display_walls(char c, int x, int y, t_img img, t_data data)
+void	display_walls(char c, int x, int y, t_data data)
 {
 	if (c == '1' && y % 2 == 0 && x % 2 == 0)
-		mlx_put_image_to_window(data.mlx, data.window, img.img_lantern, x
-			* img.img_width, y * img.img_height);
+		mlx_put_image_to_window(data.mlx, data.window, data.img->img_lantern, x
+			* data.img->img_width, y * data.img->img_height);
 	else
-		mlx_put_image_to_window(data.mlx, data.window, img.img_wall, x
-			* img.img_width, y * img.img_height);
+		mlx_put_image_to_window(data.mlx, data.window, data.img->img_wall, x
+			* data.img->img_width, y * data.img->img_height);
 }
 
-void	display_P_C_E(char c, int x, int y, t_img img, t_data data)
+void	display_p_c_e(char c, int x, int y, t_data data)
 {
 	if (c == '0')
-		mlx_put_image_to_window(data.mlx, data.window, img.img_floor, x
-			* img.img_width, y * img.img_height);
+		mlx_put_image_to_window(data.mlx, data.window, data.img->img_floor, x
+			* data.img->img_width, y * data.img->img_height);
 	else if (c == 'P')
-		mlx_put_image_to_window(data.mlx, data.window, img.img_char, x
-			* img.img_width, y * img.img_height);
+		mlx_put_image_to_window(data.mlx, data.window, data.img->img_char, x
+			* data.img->img_width, y * data.img->img_height);
 	else if (c == 'C')
-		mlx_put_image_to_window(data.mlx, data.window, img.img_coll, x
-			* img.img_width, y * img.img_height);
+		mlx_put_image_to_window(data.mlx, data.window, data.img->img_coll, x
+			* data.img->img_width, y * data.img->img_height);
 	else if (c == 'E')
-		mlx_put_image_to_window(data.mlx, data.window, img.img_exit, x
-			* img.img_width, y * img.img_height);
+		mlx_put_image_to_window(data.mlx, data.window, data.img->img_exit, x
+			* data.img->img_width, y * data.img->img_height);
 }
 
-void	display_map(char **map, t_img img, t_data data)
+void	display_map(char **map, t_data data)
 {
 	int	y;
 	int	x;
@@ -97,39 +97,11 @@ void	display_map(char **map, t_img img, t_data data)
 		while (map[y][x])
 		{
 			if (map[y][x] == '1')
-				display_walls(map[y][x], x, y, img, data);
+				display_walls(map[y][x], x, y, data);
 			else
-				display_P_C_E(map[y][x], x, y, img, data);
+				display_p_c_e(map[y][x], x, y, data);
 			x++;
 		}
 		y++;
 	}
 }
-// AUTRE VERSION
-
-void display_walls(char c, int x, int y, t_data data)
-{
-    if (c == '1' && y % 2 == 0 && x % 2 == 0)
-        mlx_put_image_to_window(data.mlx, data.window, data.img->img_lantern,
-            x * data.img->img_width, y * data.img->img_height);
-    else
-        mlx_put_image_to_window(data.mlx, data.window, data.img->img_wall,
-            x * data.img->img_width, y * data.img->img_height);
-}
-
-void display_P_C_E(char c, int x, int y, t_data data)
-{
-    if (c == '0')
-        mlx_put_image_to_window(data.mlx, data.window, data.img->img_floor,
-            x * data.img->img_width, y * data.img->img_height);
-    else if (c == 'P')
-        mlx_put_image_to_window(data.mlx, data.window, data.img->img_char,
-            x * data.img->img_width, y * data.img->img_height);
-    else if (c == 'C')
-        mlx_put_image_to_window(data.mlx, data.window, data.img->img_coll,
-            x * data.img->img_width, y * data.img->img_height);
-    else if (c == 'E')
-        mlx_put_image_to_window(data.mlx, data.window, data.img->img_exit,
-            x * data.img->img_width, y * data.img->img_height);
-}
-

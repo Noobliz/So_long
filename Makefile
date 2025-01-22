@@ -15,6 +15,7 @@ SRCS = \
 	valid_path.c \
 	display_map.c \
 	player_mov.c \
+	window_utils.c \
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

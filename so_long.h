@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:34:12 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/17 15:27:44 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/21 13:01:17 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ typedef struct s_element
 	int			player;
 	int			collectible;
 	int			exit;
+	int			empty_space;
 	int			exit_x;
 	int			exit_y;
 	int			player_x;
 	int			player_y;
 	int			move_count;
+	int			c_count;
 }				t_element;
 
 typedef struct s_img
@@ -54,9 +56,9 @@ typedef struct s_data
 }				t_data;
 
 //---------------------------UTILS
-char			**get_map(void);
+char			**get_map(char *name);
 void			free_map(char **map);
-int				map_size(void);
+int				map_size(char *name);
 int				map_width(char **map);
 int				map_height(char **map);
 void			init_struct(t_element *element);
@@ -69,12 +71,13 @@ int				is_valid(char **map);
 void			find_player_count_c(char **map, t_element *element);
 int				valid_path(char **map, t_element *element);
 //-------------------------------------------------------------MAP display
-void			display_map(char **map, t_img img, t_data data);
-void				img_init(t_data *data);
+void			display_map(char **map, t_data data);
+void			img_init(t_data *data);
 //-------------------------------------------------------------Window related
 
 int				handle_keypress(int keysym, t_data *data);
 void			destroy_images(t_img *img, void *mlx);
 void			end_game(t_data *data);
+int				handle_close(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 12:21:12 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/17 14:43:21 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/21 13:02:23 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	is_surrounded_by_walls(char **map)
 	}
 	return (1);
 }
+
 int	has_all_elements(char **map)
 {
 	t_element	element;
@@ -73,13 +74,16 @@ int	has_all_elements(char **map)
 				element.collectible++;
 			if (map[i][j] == 'E')
 				element.exit++;
+			if (map[i][j] == '0')
+				element.empty_space++;
 			j++;
 		}
 		i++;
 	}
-	return (element.player == 1 && element.collectible >= 1
-		&& element.exit == 1);
+	return (element.player == 1 && element.collectible >= 1 && element.exit == 1
+		&& element.empty_space >= 1);
 }
+
 int	valid_characters(char **map)
 {
 	int	x;
@@ -105,26 +109,22 @@ int	is_valid(char **map)
 {
 	if (!is_rectangular(map))
 	{
-		ft_printf("Error\n");
-		ft_printf("Map is not rectangular\n");
+		ft_printf("Error\nMap is not rectangular\n");
 		return (0);
 	}
 	if (!is_surrounded_by_walls(map))
 	{
-		ft_printf("Error\n");
-		ft_printf("Map is not surrounded by walls\n");
+		ft_printf("Error\nMap is not surrounded by walls\n");
 		return (0);
 	}
 	if (!has_all_elements(map))
 	{
-		ft_printf("Error\n");
-		ft_printf("Map do not have required elements\n");
+		ft_printf("Error\nMap do not have required elements\n");
 		return (0);
 	}
 	if (!valid_characters(map))
 	{
-		ft_printf("Error\n");
-		ft_printf("Map has invalid characters\n");
+		ft_printf("Error\nMap has invalid characters\n");
 		return (0);
 	}
 	return (1);

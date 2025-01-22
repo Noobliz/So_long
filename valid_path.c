@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:10:51 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/17 14:43:25 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/21 15:05:41 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,43 +83,38 @@ char	**copy_map(char **map)
 	return (map_copy);
 }
 
-void	walk_through(char **copy_map, int x, int y, int *c_count, int *exit)
+static void	walk_through(char **copy_map, int x, int y, t_element *element)
 {
 	if (copy_map[y][x] == '1' || copy_map[y][x] == 'X')
 		return ;
 	if (copy_map[y][x] == 'C')
-		(*c_count)++;
+		element->c_count++;
 	if (copy_map[y][x] == 'E')
 	{
-		*exit = 1;
+		element->exit = 1;
 		return ;
 	}
 	copy_map[y][x] = 'X';
-	walk_through(copy_map, x + 1, y, c_count, exit);
-	walk_through(copy_map, x - 1, y, c_count, exit);
-	walk_through(copy_map, x, y + 1, c_count, exit);
-	walk_through(copy_map, x, y - 1, c_count, exit);
+	walk_through(copy_map, x + 1, y, element);
+	walk_through(copy_map, x - 1, y, element);
+	walk_through(copy_map, x, y + 1, element);
+	walk_through(copy_map, x, y - 1, element);
 }
 
 int	valid_path(char **map, t_element *element)
 {
-	int		c_count;
-	int		exit;
 	char	**map_copy;
 
-	exit = 0;
-	c_count = 0;
 	init_struct(element);
 	find_player_count_c(map, element);
 	find_exit(map, element);
 	map_copy = copy_map(map);
 	if (!map_copy)
 		return (0);
-	walk_through(map_copy, element->player_x, element->player_y, &c_count,
-		&exit);
+	walk_through(map_copy, element->player_x, element->player_y, element);
 	free_map(map_copy);
-	if (c_count == element->collectible && exit == 1)
+	if (element->c_count == element->collectible && element->exit == 1)
 		return (1);
-	ft_printf("Error\nNo valid path found");
+	ft_printf("Error\nNo valid path found\n");
 	return (0);
 }
