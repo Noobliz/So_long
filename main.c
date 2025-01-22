@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 13:30:23 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/22 13:27:22 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/22 15:54:41 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*parse_argv(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_printf("Error\nToo little or too many arguments\n");
-		return (0);
+		return (NULL);
 	}
 	i = 0;
 	len = ft_strlen(argv[1]);
@@ -32,6 +32,8 @@ static char	*parse_argv(int argc, char **argv)
 		return (NULL);
 	}
 	name = malloc(sizeof(char) * (len + 1));
+	if (!name)
+		return (NULL);
 	ft_strlcpy(name, argv[1], len + 1);
 	return (name);
 }

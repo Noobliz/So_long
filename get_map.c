@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:31:20 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/22 13:32:16 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/22 16:15:44 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ static char	*remove_newline(char *line)
 	return (line);
 }
 
+static void	quit_clear(char **map, char *name)
+{
+	free(name);
+	free_map(map);
+	ft_printf("Error\n");
+	exit(0);
+}
+
 static void	create_table(char **map, int len, char *name)
 {
 	int		fd;
@@ -31,11 +39,7 @@ static void	create_table(char **map, int len, char *name)
 	i = 0;
 	fd = open(name, O_RDONLY);
 	if (fd < 0)
-	{
-		free(name);
-		free_map(map);
-		exit(EXIT_FAILURE);
-	}
+		quit_clear(map, name);
 	while (i <= len)
 	{
 		line = get_next_line(fd);
@@ -64,6 +68,13 @@ char	**get_map(char *name)
 		return (NULL);
 	}
 	create_table(map, len, name);
+	if (!map || !*map)
+	{
+		free(name);
+		free(map);
+		ft_printf("Error\nEmpty Map\n");
+		exit(0);
+	}
 	free(name);
 	return (map);
 }

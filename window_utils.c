@@ -6,12 +6,11 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 13:08:29 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/20 16:19:12 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/22 13:49:53 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
 
 void	destroy_images(t_img *img, void *mlx)
 {

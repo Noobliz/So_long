@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:17:16 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/22 13:26:03 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/22 15:57:04 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	map_size(char *name)
 	fd = open(name, O_RDONLY);
 	if (fd < 0)
 	{
+		ft_printf("Error\nOpening error\n");
 		free(name);
 		exit(EXIT_FAILURE);
 	}

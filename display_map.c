@@ -6,7 +6,7 @@
 /*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:50:43 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/21 12:11:12 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/01/22 16:15:15 by lguiet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,26 @@ void	open_window(t_data *data)
 void	img_init(t_data *data)
 {
 	open_window(data);
-	data->img->img_wall = mlx_xpm_file_to_image(data->mlx, "assets/wall.xpm",
+	data->img->img_wall = mlx_xpm_file_to_image(data->mlx, "Textures/wall.xpm",
 			&data->img->img_width, &data->img->img_height);
 	data->img->img_floor = mlx_xpm_file_to_image(data->mlx,
-			"assets/ground2.xpm", &data->img->img_width,
+			"Textures/ground2.xpm", &data->img->img_width,
 			&data->img->img_height);
 	data->img->img_lantern = mlx_xpm_file_to_image(data->mlx,
-			"assets/lantern.xpm", &data->img->img_width,
+			"Textures/lantern.xpm", &data->img->img_width,
 			&data->img->img_height);
-	data->img->img_char = mlx_xpm_file_to_image(data->mlx, "assets/hoodi.xpm",
+	data->img->img_char = mlx_xpm_file_to_image(data->mlx, "Textures/hoodi.xpm",
 			&data->img->img_width, &data->img->img_height);
-	data->img->img_coll = mlx_xpm_file_to_image(data->mlx, "assets/potion.xpm",
-			&data->img->img_width, &data->img->img_height);
-	data->img->img_exit = mlx_xpm_file_to_image(data->mlx, "assets/exit.xpm",
+	data->img->img_coll = mlx_xpm_file_to_image(data->mlx,
+			"Textures/potion.xpm", &data->img->img_width,
+			&data->img->img_height);
+	data->img->img_exit = mlx_xpm_file_to_image(data->mlx, "Textures/exit.xpm",
 			&data->img->img_width, &data->img->img_height);
 	if (!data->img->img_wall || !data->img->img_floor || !data->img->img_lantern
 		|| !data->img->img_char || !data->img->img_coll || !data->img->img_exit)
 	{
-		end_game(data);
 		ft_printf("Error\nNo image initialized\n");
-		exit(0);
+		end_game(data);
 	}
 }
 
