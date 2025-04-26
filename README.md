@@ -14,6 +14,7 @@
 - Working with a game loop to manage real-time player movement and screen updates.
 - Strengthening code organization, resource management, and attention to detail in user experience.
 
+
 <p align="center">
   <img src="Textures/visual.png" alt="so_long gameplay" width="500"/>
 </p>
