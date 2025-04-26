@@ -15,5 +15,5 @@
 - Strengthening code organization, resource management, and attention to detail in user experience.
 
 <p align="center">
-  <img src="Textures/visu.png" alt="so_long gameplay" width="500"/>
+  <img src="Textures/visual.png" alt="so_long gameplay" width="500"/>
 </p>
