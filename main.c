@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lguiet <lguiet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lisux <lisux@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 13:30:23 by lguiet            #+#    #+#             */
-/*   Updated: 2025/01/22 15:54:41 by lguiet           ###   ########.fr       */
+/*   Updated: 2025/04/26 18:24:59 by lisux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char	*parse_argv(int argc, char **argv)
 {
 	int		len;
-	int		i;
 	char	*name;
 
 	if (argc != 2)
@@ -23,7 +22,6 @@ static char	*parse_argv(int argc, char **argv)
 		ft_printf("Error\nToo little or too many arguments\n");
 		return (NULL);
 	}
-	i = 0;
 	len = ft_strlen(argv[1]);
 	if (argv[1][len - 1] != 'r' || argv[1][len - 2] != 'e' || argv[1][len
 		- 3] != 'b' || argv[1][len - 4] != '.')
